@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -39,6 +41,8 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player_one = Player('Tim', room['foyer'])
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +53,25 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+def clearScreen():
+    number = 80
+    while number > 0:
+        print("")
+        number -= 1
+    return
+
+movement = ['n', 's', 'e', 'w']
+
+while True:
+    clearScreen()
+    wrapper = textwrap.TextWrapper(width=80)
+    print(f'Player {player_one.name} is in {player_one.room.name}.')
+    print(wrapper.wrap(player_one.room.description))
+    direction = input('Please choose a direction: ')
+    if direction.lower() == 'q':
+        print('Exiting application')
+        clearScreen()
+        break
+    if direction not in movement:
+        print('Move is not allowed.')
