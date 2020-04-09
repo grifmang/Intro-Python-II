@@ -24,7 +24,7 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 
-# Link rooms together
+# # Link rooms together
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -41,7 +41,8 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player_one = Player('Tim', room['foyer'])
+player_name = input('Enter your name: ')
+player_one = Player(player_name, room['outside'])
 
 # Write a loop that:
 #
@@ -61,17 +62,44 @@ def clearScreen():
         number -= 1
     return
 
-movement = ['n', 's', 'e', 'w']
+movement = ('n', 's', 'e', 'w')
 
 while True:
-    clearScreen()
+    # clearScreen()
     wrapper = textwrap.TextWrapper(width=80)
-    print(f'Player {player_one.name} is in {player_one.room.name}.')
+    print(f'\nPlayer {player_one.name} is in {player_one.room.name}.')
     print(wrapper.wrap(player_one.room.description))
-    direction = input('Please choose a direction: ')
+    direction = input('Please choose a direction [n,s,e,w] q to quit: ').lower()
     if direction.lower() == 'q':
-        print('Exiting application')
         clearScreen()
         break
     if direction not in movement:
         print('Move is not allowed.')
+    elif direction == 'n':
+        if player_one.room.n_to is not None:
+            player_one.room = player_one.room.n_to
+            print(f"You've entered the {player_one.room.name}.")
+            print(f'{player_one.room.description}')
+        else:
+            print("There is no path in that direction, traveler.")
+    elif direction == 'e':
+        if player_one.room.e_to is not None:
+            player_one.room = player_one.room.e_to
+            print(f"You've entered the {player_one.room.name}.")
+            print(f'{player_one.room.description}')
+        else:
+            print("There is no path in that direction, traveler.")
+    elif direction == 'w':
+        if player_one.room.w_to is not None:
+            player_one.room = player_one.room.w_to
+            print(f"You've entered the {player_one.room.name}.")
+            print(f'{player_one.room.description}')
+        else:
+            print("There is no path in that direction, traveler.")
+    elif direction == 's':
+        if player_one.room.s_to is not None:
+            player_one.room = player_one.room.s_to
+            print(f"You've entered the {player_one.room.name}.")
+            print(f'{player_one.room.description}')
+        else:
+            print("There is no path in that direction, traveler.")
