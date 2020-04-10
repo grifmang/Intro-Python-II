@@ -8,3 +8,13 @@ class Room:
         self.s_to = None
         self.w_to = None
         self.e_to = None
+        self.items = []
+
+    def show_items(self):
+        [print(x.name) for x in self.items]
+
+    def drop_item(self, item):
+        self.items.remove(item)
+
+    def add_item(self, item):
+        self.items.append(item)

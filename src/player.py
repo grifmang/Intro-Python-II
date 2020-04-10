@@ -4,6 +4,13 @@ class Player:
     def __init__(self, name, room):
         self.name = name
         self.room = room
+        self.items = []
 
-    def change_room(self, room):
-        self.room = room
+    def get_item(self, item):
+        self.items.append(item)
+
+    def drop_item(self, item):
+        self.items.remove(item)
+    
+    def show_items(self):
+        [print(x.name) for x in self.items]
